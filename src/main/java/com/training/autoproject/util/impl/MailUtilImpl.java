@@ -13,16 +13,35 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Oleg on 16-May-17.
+ * Default implementation of the
+ * {@link com.training.autoproject.util.MailUtil}
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Component
 public class MailUtilImpl implements MailUtil {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(MailUtilImpl.class);
+    /**
+     * Mail Sender for sending mail,is configured in applicationContext.xml
+     */
     @Autowired
     MailSender mailSender;
+    /**
+     * Message which sends to users,is configures in applicationContext
+     */
     @Autowired
     SimpleMailMessage simpleMailMessage;
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.util.MailUtil}
+     *
+     * @param email for sending
+     */
     @Override
     @Async
     public void sendMail(String email) {

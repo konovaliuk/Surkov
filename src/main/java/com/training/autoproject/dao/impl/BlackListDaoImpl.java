@@ -17,15 +17,28 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Created by Oleg on 14.05.2017.
+ * Base implementation of
+ * {@link com.training.autoproject.dao.BlackListDao}
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public class BlackListDaoImpl implements BlackListDao {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(BlackListDao.class);
+    /**
+     * EntityManager  for using JPA
+     */
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.BlackListDao}
+     *
+     * @return list of BlackList
+     */
     @Override
     public List<BlackList> findBlackList() {
         log.info("invoke findBlackList");
@@ -33,12 +46,25 @@ public class BlackListDaoImpl implements BlackListDao {
         return blackLists;
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.BlackListDao}
+     *
+     * @param blackList
+     */
     @Override
     public void addBlackList(BlackList blackList) {
         log.info("Invoke addBlackList");
         entityManager.persist(blackList);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.BlackListDao}
+     *
+     * @param passnum
+     * @return BlackList
+     */
     @Override
     public BlackList findBlackListByPassnum(String passnum) {
         log.info("Invoke findBlackListByPassnum");

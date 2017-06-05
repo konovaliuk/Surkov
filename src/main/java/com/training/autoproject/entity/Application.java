@@ -1,11 +1,8 @@
 package com.training.autoproject.entity;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.validator.constraints.Email;
 
+import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -29,7 +26,6 @@ public class Application implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     public Long getId() {
         return id;
     }

@@ -17,16 +17,32 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
- * Created by Oleg on 14.05.2017.
+ * Base impementation of
+ * {@link com.training.autoproject.dao.UserDao}
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public class UserDaoImpl implements UserDao {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(UserDaoImpl.class);
-
+    /**
+     * EntityManager  for using JPA
+     */
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.UserDao}
+     *
+     * @param nickname
+     * @return User
+     */
     @Override
     public User findUserByNickname(String nickname) {
         log.info("Invoke findUserByNickName");

@@ -19,15 +19,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * Created by Oleg on 16-May-17.
+ * Controller for manipulating with admin requests
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Controller
 public class AdminController {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(AdminController.class);
-
+    /**
+     * field for injecting realization of {@link com.training.autoproject.service.ApplicationService}
+     */
     @Autowired
     OrderService orderService;
 
+    /**
+     * Method that listens login admin request
+     *
+     * @return json response
+     */
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     @ResponseBody
     public List<Application> startAdmin() {
@@ -36,6 +49,11 @@ public class AdminController {
         return applicationList;
     }
 
+    /**
+     * Method that listens requests on orders
+     *
+     * @return json response
+     */
     @RequestMapping(value = "/admin/orders", method = RequestMethod.GET)
     @ResponseBody
     public List<Order> getOrders() {
@@ -44,6 +62,11 @@ public class AdminController {
         return orderList;
     }
 
+    /**
+     * Method that listens requests on blacklist
+     *
+     * @return json response
+     */
     @RequestMapping(value = "/admin/blacklist", method = RequestMethod.GET)
     @ResponseBody
     public List<BlackList> getBlackList() {
@@ -52,6 +75,12 @@ public class AdminController {
         return orderList;
     }
 
+    /**
+     * Method that listens requests on add order
+     *
+     * @param id
+     * @return json response
+     */
     @RequestMapping(value = "/admin/{id}/addorder", method = RequestMethod.GET)
     @ResponseBody
     public JsonOrderResponse addOrder(@PathVariable("id") Long id) {
@@ -68,6 +97,12 @@ public class AdminController {
         return jsonOrderResponse;
     }
 
+    /**
+     * Method that listens requests on close application
+     *
+     * @param id
+     * @return json response
+     */
     @RequestMapping(value = "/admin/{id}/closeapp", method = RequestMethod.GET)
     @ResponseBody
     public List<Application> closeApp(@PathVariable("id") Long id) {
@@ -77,6 +112,12 @@ public class AdminController {
         return applicationList;
     }
 
+    /**
+     * Method that listens requests on close order
+     *
+     * @param id
+     * @return json response
+     */
     @RequestMapping(value = "/admin/{id}/closeord", method = RequestMethod.GET)
     @ResponseBody
     public List<Order> closeOrder(@PathVariable("id") Long id) {
@@ -86,6 +127,13 @@ public class AdminController {
         return orderList;
     }
 
+    /**
+     * Method that listens requests on update order
+     *
+     * @param id
+     * @param repcost
+     * @return json response
+     */
     @RequestMapping(value = "/admin/{id}/updateord", method = RequestMethod.GET)
     @ResponseBody
     public List<Order> updateOrder(@PathVariable("id") Long id, @RequestParam("repcost") int repcost) {

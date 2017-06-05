@@ -19,15 +19,31 @@ import java.util.List;
 
 
 /**
- * Created by Oleg on 14.05.2017.
+ * Base implementation of
+ * {@link com.training.autoproject.dao.ApplicationDao}
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Repository
 @Transactional(propagation = Propagation.MANDATORY)
 public class ApplicationDaoImpl implements ApplicationDao {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(ApplicationServiceImpl.class);
+    /**
+     * EntityManager  for using JPA
+     */
     @PersistenceContext
     EntityManager entityManager;
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.ApplicationDao}
+     *
+     * @return list of Application
+     */
     @Override
     public List<Application> findApplicationsByIsClosed() {
         log.info("Invoke findApplicationByIsClosed");
@@ -35,18 +51,37 @@ public class ApplicationDaoImpl implements ApplicationDao {
         return applicationList;
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.ApplicationDao}
+     *
+     * @param application
+     */
     @Override
     public void updateApplication(Application application) {
         log.info("Invoke updateApplication");
         entityManager.merge(application);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.ApplicationDao}
+     *
+     * @param application
+     */
     @Override
     public void addApplication(Application application) {
         log.info("Invoke addApplication");
         entityManager.persist(application);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.dao.ApplicationDao}
+     *
+     * @param id of application
+     * @return application
+     */
     @Override
     public Application findApplicationById(Long id) {
         log.info("Invoke findApplicationById");

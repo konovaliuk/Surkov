@@ -18,14 +18,32 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Oleg on 16-May-17.
+ * Base implementation of
+ * {@link  org.springframework.security.core.userdetails.UserDetailsService}
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 
 public class UserDetailsServiceImpl implements UserDetailsService {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(UserDetailsServiceImpl.class);
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.UserDao}
+     */
     @Autowired
     UserDao userDao;
 
+    /**
+     * Implementation method from
+     * {@link org.springframework.security.core.userdetails.UserDetailsService }
+     *
+     * @param nickname
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Transactional
     @Override
     public UserDetails loadUserByUsername(String nickname) throws UsernameNotFoundException {

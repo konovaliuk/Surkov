@@ -19,20 +19,45 @@ import java.util.List;
 
 
 /**
- * Created by Oleg on 16-May-17.
+ * Base implementation of
+ * {@link com.training.autoproject.service.ApplicationService}
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(ApplicationServiceImpl.class);
+    /**
+     * Constant for inner using
+     */
     private static final int NOT_CLOSED = 1;
-
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.CarDao}
+     */
     @Autowired
     CarDao carDao;
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.ApplicationDao}
+     */
     @Autowired
     ApplicationDao applicationDao;
+    /**
+     * field for injecting realization of {@link com.training.autoproject.util.MailUtil}
+     */
     @Autowired
     MailUtil mailUtil;
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.ApplicationService}
+     *
+     * @param application
+     * @param carId
+     */
     @Transactional
     @Override
     public void addApplication(Application application, Long carId) {
@@ -44,6 +69,12 @@ public class ApplicationServiceImpl implements ApplicationService {
         applicationDao.addApplication(application);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.ApplicationService}
+     *
+     * @return list of Cars
+     */
     @Transactional(readOnly = true)
     @Override
     public List<Car> getAccessibleCars() {

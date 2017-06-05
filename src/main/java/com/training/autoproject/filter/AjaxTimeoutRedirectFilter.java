@@ -1,10 +1,6 @@
 package com.training.autoproject.filter;
 
 
-
-import com.mysql.jdbc.log.LogFactory;
-import com.training.autoproject.service.impl.ApplicationServiceImpl;
-import org.apache.commons.logging.Log;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
@@ -22,11 +18,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.logging.Logger;
-
 
 /**
- * Created by Oleg on 16-May-17.
+ * Filter which finds ajax requests with invalid session
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
 
@@ -38,56 +35,39 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
     private int customSessionExpiredErrorCode = 901;
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
-    {
-        try
-        {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        try {
             chain.doFilter(request, response);
 
-         //   logger.info("Chain processed normally");
-        }
-        catch (IOException ex)
-        {
+            //   logger.info("Chain processed normally");
+        } catch (IOException ex) {
             throw ex;
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             Throwable[] causeChain = throwableAnalyzer.determineCauseChain(ex);
             RuntimeException ase = (AuthenticationException) throwableAnalyzer.getFirstThrowableOfType(AuthenticationException.class, causeChain);
 
-            if (ase == null)
-            {
+            if (ase == null) {
                 ase = (AccessDeniedException) throwableAnalyzer.getFirstThrowableOfType(AccessDeniedException.class, causeChain);
             }
 
-            if (ase != null)
-            {
-                if (ase instanceof AuthenticationException)
-                {
+            if (ase != null) {
+                if (ase instanceof AuthenticationException) {
                     throw ase;
-                }
-                else if (ase instanceof AccessDeniedException)
-                {
+                } else if (ase instanceof AccessDeniedException) {
 
-                    if (authenticationTrustResolver.isAnonymous(SecurityContextHolder.getContext().getAuthentication()))
-                    {
+                    if (authenticationTrustResolver.isAnonymous(SecurityContextHolder.getContext().getAuthentication())) {
                         logger.info("User session expired or not logged in yet");
                         String ajaxHeader = ((HttpServletRequest) request).getHeader("X-Requested-With");
 
-                        if ("XMLHttpRequest".equals(ajaxHeader))
-                        {
+                        if ("XMLHttpRequest".equals(ajaxHeader)) {
                             logger.info("Ajax call detected, send {} error code");
                             HttpServletResponse resp = (HttpServletResponse) response;
                             resp.sendError(this.customSessionExpiredErrorCode);
-                        }
-                        else
-                        {
+                        } else {
                             logger.info("Redirect to login page");
                             throw ase;
                         }
-                    }
-                    else
-                    {
+                    } else {
                         throw ase;
                     }
                 }
@@ -96,19 +76,15 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
         }
     }
 
-    private static final class DefaultThrowableAnalyzer extends ThrowableAnalyzer
-    {
+    private static final class DefaultThrowableAnalyzer extends ThrowableAnalyzer {
         /**
          * @see org.springframework.security.web.util.ThrowableAnalyzer#initExtractorMap()
          */
-        protected void initExtractorMap()
-        {
+        protected void initExtractorMap() {
             super.initExtractorMap();
 
-            registerExtractor(ServletException.class, new ThrowableCauseExtractor()
-            {
-                public Throwable extractCause(Throwable throwable)
-                {
+            registerExtractor(ServletException.class, new ThrowableCauseExtractor() {
+                public Throwable extractCause(Throwable throwable) {
                     ThrowableAnalyzer.verifyThrowableHierarchy(throwable, ServletException.class);
                     return ((ServletException) throwable).getRootCause();
                 }
@@ -117,8 +93,7 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
 
     }
 
-    public void setCustomSessionExpiredErrorCode(int customSessionExpiredErrorCode)
-    {
+    public void setCustomSessionExpiredErrorCode(int customSessionExpiredErrorCode) {
         this.customSessionExpiredErrorCode = customSessionExpiredErrorCode;
     }
 }

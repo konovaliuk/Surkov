@@ -23,22 +23,54 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Oleg on 16-May-17.
+ * Basic implementation of
+ * {@link com.training.autoproject.service.OrderService}
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Service
 public class OrderServiceImpl implements OrderService {
+    /**
+     * Logger for logging class
+     */
     private static final Logger log = LogManager.getLogger(OrderServiceImpl.class);
+    /**
+     * Constant for inner using
+     */
     private static final int CLOSED = 0;
+    /**
+     * Constant for inner using
+     */
     private static final int NOT_CLOSED = 1;
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.ApplicationDao}
+     */
     @Autowired
     ApplicationDao applicationDao;
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.CarDao}
+     */
     @Autowired
     CarDao carDao;
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.OrderDao}
+     */
     @Autowired
     OrderDao orderDao;
+    /**
+     * field for injecting realization of {@link com.training.autoproject.dao.BlackListDao}
+     */
     @Autowired
     BlackListDao blackListDao;
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @param appId
+     * @throws CarAccessException
+     */
     @Transactional
     @Override
     public void addOrder(Long appId) throws CarAccessException {
@@ -61,6 +93,12 @@ public class OrderServiceImpl implements OrderService {
         orderDao.addOrder(order);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @param id
+     */
     @Transactional
     @Override
     public void closeOrder(Long id) {
@@ -73,6 +111,12 @@ public class OrderServiceImpl implements OrderService {
         carDao.updateCarByIsActive(car);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @return list of Orders
+     */
     @Transactional(readOnly = true)
     @Override
     public List<Order> getActiveOrders() {
@@ -80,6 +124,12 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.findOrdersByIsClosed();
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @param passnum
+     */
     @Transactional
     @Override
     public void addToBlackList(String passnum) {
@@ -89,6 +139,13 @@ public class OrderServiceImpl implements OrderService {
         blackListDao.addBlackList(blackList);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @param passnum
+     * @return boolean value
+     */
     @Transactional(readOnly = true)
     @Override
     public boolean findInBlackList(String passnum) {
@@ -102,6 +159,13 @@ public class OrderServiceImpl implements OrderService {
         return false;
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @param orderId
+     * @param repairCost
+     */
     @Transactional
     @Override
     public void updateOrder(Long orderId, int repairCost) {
@@ -111,6 +175,12 @@ public class OrderServiceImpl implements OrderService {
         orderDao.updateOrder(order);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @param appId
+     */
     @Transactional
     @Override
     public void closeApplication(Long appId) {
@@ -120,6 +190,12 @@ public class OrderServiceImpl implements OrderService {
         applicationDao.updateApplication(application);
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @return list of BlackList
+     */
     @Transactional(readOnly = true)
     @Override
     public List<BlackList> getBlackList() {
@@ -128,6 +204,12 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    /**
+     * Implementation method from
+     * {@link com.training.autoproject.service.OrderService}
+     *
+     * @return list of Applications
+     */
     @Transactional(readOnly = true)
     @Override
     public List<Application> getActiveApplications() {
