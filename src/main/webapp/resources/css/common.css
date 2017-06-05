@@ -1,0 +1,31 @@
+.hidden{
+    display: none;
+}
+#forma{
+    padding: 20px;
+    background-color: #ffffff;
+    max-width: 320px;
+    margin: auto;
+    position: relative;
+}
+input{
+    width: 50%;
+}
+
+#locale{
+    padding-left: 60%;
+}
+#loginform{
+    padding: 20px;
+    background-color: #ffffff;
+    max-width: 320px;
+    margin: auto;
+    position: relative;
+}
+#updateordform{
+    padding: 20px;
+    background-color: #ffffff;
+    max-width: 320px;
+    margin: auto;
+    position: relative;
+}

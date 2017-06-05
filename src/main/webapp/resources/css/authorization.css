@@ -1,0 +1,18 @@
+.row{
+    margin-top: 20%;
+
+}
+#form-horizontal{
+    border: 1px solid #d8d5d7;
+ border-radius: 3px;
+    margin-outside: 10px;
+}
+.form-horizontal{
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+.error{
+    color: red;
+}
