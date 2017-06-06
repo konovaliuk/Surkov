@@ -47,8 +47,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     @Override
     public List<Application> findApplicationsByIsClosed() {
         log.info("Invoke findApplicationByIsClosed");
-        List<Application> applicationList = entityManager.createQuery("select  a from Application a where a.isclosed=1", Application.class).getResultList();
-        return applicationList;
+        return entityManager.createQuery("select  a from Application a where a.isclosed=1", Application.class).getResultList();
     }
 
     /**

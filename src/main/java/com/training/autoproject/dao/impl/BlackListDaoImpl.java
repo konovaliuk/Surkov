@@ -42,8 +42,7 @@ public class BlackListDaoImpl implements BlackListDao {
     @Override
     public List<BlackList> findBlackList() {
         log.info("invoke findBlackList");
-        List<BlackList> blackLists = entityManager.createQuery("select bl from BlackList bl", BlackList.class).getResultList();
-        return blackLists;
+        return entityManager.createQuery("select bl from BlackList bl", BlackList.class).getResultList();
     }
 
     /**

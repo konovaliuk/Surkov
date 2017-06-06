@@ -45,8 +45,7 @@ public class CarDaoImpl implements CarDao {
     @Override
     public List<Car> findCarsByIsActive() {
         log.info("Invoke findCarsByIsActive");
-        List<Car> cars = entityManager.createQuery("select c from  Car c where c.isactive=0 ", Car.class).getResultList();
-        return cars;
+        return entityManager.createQuery("select c from  Car c where c.isactive=0 ", Car.class).getResultList();
     }
 
     /**
@@ -58,8 +57,7 @@ public class CarDaoImpl implements CarDao {
     @Override
     public List<Car> findCars() {
         log.info("Invoke findCars");
-        List<Car> cars = entityManager.createQuery("select c from Car c ", Car.class).getResultList();
-        return cars;
+        return entityManager.createQuery("select c from Car c ", Car.class).getResultList();
     }
 
     /**
@@ -72,8 +70,7 @@ public class CarDaoImpl implements CarDao {
     @Override
     public Car findCarById(Long id) {
         log.info("Invoke findCarById");
-        Car car = entityManager.find(Car.class, id);
-        return car;
+        return entityManager.find(Car.class, id);
     }
 
     /**

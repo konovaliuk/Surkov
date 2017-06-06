@@ -46,8 +46,7 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> findOrdersByIsClosed() {
         log.info("Invoke findOrdersByIsClosed");
-        List<Order> orderList = entityManager.createQuery("select o from Order o where o.isclosed=1", Order.class).getResultList();
-        return orderList;
+        return entityManager.createQuery("select o from Order o where o.isclosed=1", Order.class).getResultList();
     }
 
     /**
@@ -85,7 +84,6 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Order findOrderById(Long id) {
         log.info("Invoke findOrderById");
-        Order order = entityManager.find(Order.class, id);
-        return order;
+        return entityManager.find(Order.class, id);
     }
 }

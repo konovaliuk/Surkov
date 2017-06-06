@@ -24,7 +24,6 @@ import java.util.Set;
  * @author Oleh Surkov
  * @version 1.0
  */
-
 public class UserDetailsServiceImpl implements UserDetailsService {
     /**
      * Logger for logging class
