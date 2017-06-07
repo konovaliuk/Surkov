@@ -4,7 +4,6 @@ import com.training.autoproject.entity.Application;
 import com.training.autoproject.entity.Car;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Interface for ApplicationService layer

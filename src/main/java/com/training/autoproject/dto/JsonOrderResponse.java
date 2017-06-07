@@ -1,4 +1,6 @@
-package com.training.autoproject.entity;
+package com.training.autoproject.dto;
+
+import com.training.autoproject.entity.Application;
 
 import java.util.List;
 

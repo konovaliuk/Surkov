@@ -1,5 +1,6 @@
 package com.training.autoproject.service;
 
+import com.training.autoproject.AbstractTestConfig;
 import com.training.autoproject.dao.*;
 import com.training.autoproject.entity.Application;
 import com.training.autoproject.entity.Car;
@@ -26,32 +27,20 @@ import static org.mockito.Mockito.when;
 /**
  * Created by Oleg on 16-May-17.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:/test-config.xml")
-@Rollback
-@Transactional(transactionManager = "transactionManager")
-public class ServiceTest {
-
+public class ApplicationServiceTest extends AbstractTestConfig {
     @Mock
     ApplicationDao applicationDao;
     @Mock
     CarDao carDao;
-    @Mock
-    OrderDao orderDao;
-    @Mock
-    UserDao userDao;
-    @Mock
-    BlackListDao blackListDao;
     @InjectMocks
     @Autowired
-    ApplicationService generalService;
+    ApplicationService applicationService;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        ReflectionTestUtils.setField(generalService, "carDao", carDao);
-
-        ReflectionTestUtils.setField(generalService, "applicationDao", applicationDao);
+        ReflectionTestUtils.setField(applicationService, "carDao", carDao);
+        ReflectionTestUtils.setField(applicationService, "applicationDao", applicationDao);
 
 
     }
@@ -64,13 +53,13 @@ public class ServiceTest {
         car.setMake("Bmw");
         car.setPrice(1234);
         List<Car> cars = Collections.nCopies(1, car);
-        when(generalService.getAccessibleCars()).thenReturn(cars);
-        List<Car> cars1 = generalService.getAccessibleCars();
+        when(carDao.findCarsByIsActive()).thenReturn(cars);
+        List<Car> cars1 = applicationService.getAccessibleCars();
         Assert.assertEquals(car, cars.get(0));
     }
 
     @Test
-    public void someTest() {
+    public void someTest() throws InterruptedException {
         Car car = new Car();
         car.setMake("Moke");
         when(carDao.findCarById(new Long(2))).thenReturn(car);
@@ -82,12 +71,8 @@ public class ServiceTest {
         application.setPatronymic("ruslanych");
         application.setPassnum("CT12345567");
         doNothing().when(applicationDao).addApplication(application);
-        long start = System.currentTimeMillis();
-
-        generalService.addApplication(application, new Long(2));
-
-        long finish = System.currentTimeMillis();
-        System.out.println("time " + (finish - start));
+        applicationService.addApplication(application, new Long(2));
+        Thread.sleep(3000);
     }
 
 

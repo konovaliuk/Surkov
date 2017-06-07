@@ -2,13 +2,10 @@ package com.training.autoproject.service.impl;
 
 import com.training.autoproject.dao.ApplicationDao;
 import com.training.autoproject.dao.CarDao;
-import com.training.autoproject.dao.impl.ApplicationDaoImpl;
 import com.training.autoproject.entity.Application;
 import com.training.autoproject.entity.Car;
 import com.training.autoproject.service.ApplicationService;
 import com.training.autoproject.util.MailUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,11 +59,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public void addApplication(Application application, Long carId) {
         log.info("invoke addApplication");
-        mailUtil.sendMail(application.getEmail());
         Car car = carDao.findCarById(carId);
         application.setIsclosed(NOT_CLOSED);
         application.setCarByCarId(car);
         applicationDao.addApplication(application);
+        mailUtil.sendMail(application.getEmail());
     }
 
     /**

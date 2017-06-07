@@ -1,9 +1,6 @@
 package com.training.autoproject.util.impl;
 
-import com.training.autoproject.service.impl.ApplicationServiceImpl;
 import com.training.autoproject.util.MailUtil;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

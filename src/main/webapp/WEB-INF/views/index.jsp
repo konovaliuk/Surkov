@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="/WEB-INF/mytag.tld" prefix="tag" %>
 <%--
   Created by IntelliJ IDEA.
   User: Oleg
@@ -44,10 +45,7 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link<span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-            </ul>
+
             <c:choose>
                 <c:when test="${pageContext.request.userPrincipal.name != null}">
                     <ul class="nav navbar-nav navbar-left">
@@ -65,8 +63,8 @@
                 </c:when>
                 <c:otherwise>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="?lang=en" class="locale" id="locale">en</a></li>
-                        <li><a href="?lang=ru" class="locale" >ru</a></li>
+                        <li><tag:locale param="en"/></li>
+                        <li><tag:locale param="ru"/></li>
                         <li><a href="#loginform" class="loginpopup"><spring:message code="login"/></a></li>
                     </ul>
                 </c:otherwise>
@@ -101,7 +99,8 @@
                         <td style="vertical-align: middle">${car.make}</td>
                         <td style="vertical-align: middle">${car.price}</td>
                         <td style="vertical-align: middle">
-                            <a href="#" class="btn btn-primary" data-id="${car.id}" name="formref"><spring:message code="submit"/></a>
+                            <a href="#" class="btn btn-primary" data-id="${car.id}" name="formref"><spring:message
+                                    code="submit"/></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -172,6 +171,14 @@
             <input type="text" class="form-control" id="password" placeholder="password" name="password">
         </div>
         <input type="submit" id="send" class="btn-primary" value="Submit">
+    </form>
+    <form action="" id="addblacklist">
+        <div class="form-group">
+            <label for="addbl">repaircost</label>
+            <input type="text" class="form-control" id="addbl" placeholder="passnum" name="passnum">
+        </div>
+
+        <input type="submit" id="sendaddbl" class="btn-primary" value="Submit">
     </form>
     <form method="post" action="/logout" class="logout1"/>
 </div>

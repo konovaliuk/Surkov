@@ -10,8 +10,6 @@ import com.training.autoproject.entity.Car;
 import com.training.autoproject.entity.Order;
 import com.training.autoproject.exception.CarAccessException;
 import com.training.autoproject.service.OrderService;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.joda.time.DateTime;

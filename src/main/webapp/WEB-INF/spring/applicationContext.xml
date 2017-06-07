@@ -75,7 +75,7 @@
         <s:custom-filter ref="ajaxTimeoutRedirectFilter" after="EXCEPTION_TRANSLATION_FILTER"/>
 
         <s:csrf disabled="true"/>
-        <s:intercept-url pattern="/" access="permitAll"/>
+        <s:intercept-url pattern="/" access="isAnonymous()"/>
         <s:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <s:form-login login-page="/" default-target-url="/admin"
                       authentication-failure-url="/admindfd?error"

@@ -1,14 +1,12 @@
 package com.training.autoproject.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
-
 /**
  * Created by Oleg on 08.05.2017.
  */
 @Entity
 @Table(name = "\"car\"", schema = "autoproject")
-public class Car {
+public  class Car {
     private Long id;
     private Integer price;
     private Integer isactive;

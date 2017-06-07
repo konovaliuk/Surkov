@@ -35,9 +35,13 @@ $(document).ready(function () {
                         alertMessage(result.fieldErrors[i].defaultMessage, "danger", 10000);
                     }
                 }
+                else if (result.status == "success") {
+                    $("#forma")[0].reset();
+                    alertMessage("check you e-mail", "info", 4000);
+                }
                 else {
                     $("#forma")[0].reset();
-                    alertMessage(result.status, "info", 4000);
+                    alertMessage("sorry,something was wrong", "danger", 4000)
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -93,7 +97,8 @@ $(document).ready(function () {
             success: function (result) {
                 $(".collapse").append('<ul class="nav navbar-nav navbar-left"> <li><a href="#" class="appnav">Applications</a></li> </ul>')
                     .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="ordnav">Orders</a></li></ul>')
-                    .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="blnav">Black List</a></li></ul>');
+                    .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="blnav">Black List</a></li>')
+                    .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="addblnav">Add in BlackList</a></li></ul>');
                 $(".navbar-right").empty();
                 $(".navbar-right").append(' <li><a href="#logout" class="logout">Log out</a></li>');
                 applicationTable(result);
@@ -106,6 +111,42 @@ $(document).ready(function () {
 
         return false;
     });
+    $(document).on('click', '.addblnav', function (e) {
+        $.magnificPopup.open({
+            items: {
+                src: "#addblacklist",
+                type: 'inline',
+            },
+            closeBtnInside: true
+        });
+        return false;
+
+    });
+    $(document).on('click', '#sendaddbl', function (e) {
+        var form = $('#addblacklist').serialize();
+        $.ajax({
+            url: "/admin/addblacklist",
+            type: "GET",
+            data: form,
+            success: function (result) {
+                blackListTable(result);
+                $.magnificPopup.close();
+                $("#addblacklist")[0].reset();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                if (jqXHR.status == 901) {
+                    alertMessage("you session was expired,you will redirect to home page", "danger", 4000);
+                    setTimeout(function () {
+                        window.location.href = "http://localhost:8087/";
+                    }, 2000);
+
+
+                }
+            }
+        });
+        return false;
+    });
+
     $(document).on('click', '.blnav', function (e) {
         $.ajax({
             url: "/admin/blacklist",
@@ -133,9 +174,9 @@ $(document).ready(function () {
             url: "/admin/" + x + "/addorder",
             type: "GET",
             success: function (result) {
-                if(result.status=="error"){
-                    alertMessage("you cannot add this order","danger",4000)
-                }else {
+                if (result.status == "error") {
+                    alertMessage("you cannot add this order", "danger", 4000)
+                } else {
                     applicationTable(result.applicationList);
                 }
             },
@@ -193,6 +234,7 @@ $(document).ready(function () {
             success: function (result) {
                 orderTable(result);
                 $.magnificPopup.close();
+                $("#updateordform")[0].reset();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.status + ' ' + jqXHR.responseText);
@@ -209,6 +251,7 @@ $(document).ready(function () {
     });
 
 });
+
 function applicationTable(result) {
     $(".table").empty();
     $(".table").addClass("table-bordered");
@@ -218,6 +261,7 @@ function applicationTable(result) {
         $(".appresult").append('<tr><td>' + result[i].firstname + '</td><td>' + result[i].lastname + '</td><td>' + result[i].passnum + '</td><td>' + result[i].carByCarId.make + '</td><td><a href="#" class=" btn btn-danger" data-id="' + result[i].id + '" name="closeapp">Submit</a></td><td><a href="#" class="btn btn-info" data-id="' + result[i].id + '"name="addorder">Submit</a></td></tr>');
     }
 }
+
 function orderTable(result) {
     $(".table").empty();
     $(".table").addClass("table-bordered");
@@ -227,6 +271,7 @@ function orderTable(result) {
         $(".ordresult").append('<tr><td>' + result[i].appByAppId.firstname + '</td><td>' + result[i].appByAppId.lastname + '</td><td>' + result[i].retdate + '</td><td>' + result[i].repaircost + '</td><td><a href="#" class=" btn btn-danger" data-id="' + result[i].id + '" name="closeord">Submit</a></td><td><a href="#" class="btn btn-info" data-id="' + result[i].id + '" name="updateord">Submit</a></td></tr>');
     }
 }
+
 function blackListTable(result) {
     $(".table").addClass("table-bordered");
     $(".table").empty();
@@ -236,6 +281,7 @@ function blackListTable(result) {
         $(".blresult").append('<tr><td>' + result[i].id + '</td><td>' + result[i].passnum + '</td></tr>');
     }
 }
+
 function alertMessage(message, type, delay) {
     $.bootstrapGrowl(message, // Messages
         { // options

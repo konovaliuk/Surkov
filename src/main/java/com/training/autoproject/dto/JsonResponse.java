@@ -1,4 +1,4 @@
-package com.training.autoproject.entity;
+package com.training.autoproject.dto;
 
 import org.springframework.validation.FieldError;
 

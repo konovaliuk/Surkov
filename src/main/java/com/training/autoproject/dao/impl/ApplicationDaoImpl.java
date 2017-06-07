@@ -1,12 +1,10 @@
 package com.training.autoproject.dao.impl;
 
-import com.training.autoproject.controller.UsersController;
+
 import com.training.autoproject.dao.ApplicationDao;
 import com.training.autoproject.entity.Application;
 
 import com.training.autoproject.service.impl.ApplicationServiceImpl;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Repository;

@@ -2,14 +2,10 @@ package com.training.autoproject.controller;
 
 import com.training.autoproject.entity.Application;
 import com.training.autoproject.entity.BlackList;
-import com.training.autoproject.entity.JsonOrderResponse;
+import com.training.autoproject.dto.JsonOrderResponse;
 import com.training.autoproject.entity.Order;
 import com.training.autoproject.exception.CarAccessException;
-import com.training.autoproject.service.ApplicationService;
 import com.training.autoproject.service.OrderService;
-import com.training.autoproject.service.impl.ApplicationServiceImpl;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,6 +137,13 @@ public class AdminController {
         orderService.updateOrder(id, repcost);
         List<Order> orderList = orderService.getActiveOrders();
         return orderList;
+    }
+
+    @RequestMapping(value = "admin/addblacklist",method = RequestMethod.GET)
+    @ResponseBody
+    public List<BlackList> addBlackList(@RequestParam("passnum") String passnum) {
+        orderService.addToBlackList(passnum);
+        return orderService.getBlackList();
     }
 
 

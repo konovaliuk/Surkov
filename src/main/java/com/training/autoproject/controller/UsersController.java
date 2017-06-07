@@ -1,8 +1,9 @@
 package com.training.autoproject.controller;
 
 import com.training.autoproject.entity.Application;
-import com.training.autoproject.entity.JsonResponse;
+import com.training.autoproject.dto.JsonResponse;
 import com.training.autoproject.service.ApplicationService;
+import com.training.autoproject.service.OrderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 
 
@@ -30,6 +32,8 @@ public class UsersController {
      */
     @Autowired
     ApplicationService applicationService;
+    @Autowired
+    OrderService orderService;
 
     /**
      * Method that listens "/" request

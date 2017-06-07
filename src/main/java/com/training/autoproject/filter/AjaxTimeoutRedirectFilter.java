@@ -2,6 +2,7 @@ package com.training.autoproject.filter;
 
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationTrustResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
@@ -27,8 +28,8 @@ import java.io.IOException;
  */
 public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
 
-    private static final org.apache.logging.log4j.Logger log = LogManager.getLogger(AjaxTimeoutRedirectFilter.class);
 
+    private static final Logger log = LogManager.getLogger(AjaxTimeoutRedirectFilter.class);
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
     private AuthenticationTrustResolver authenticationTrustResolver = new AuthenticationTrustResolverImpl();
 
@@ -37,9 +38,10 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
+
             chain.doFilter(request, response);
 
-            //   logger.info("Chain processed normally");
+            log.info("Chain processed normally");
         } catch (IOException ex) {
             throw ex;
         } catch (Exception ex) {
@@ -56,15 +58,15 @@ public class AjaxTimeoutRedirectFilter extends GenericFilterBean {
                 } else if (ase instanceof AccessDeniedException) {
 
                     if (authenticationTrustResolver.isAnonymous(SecurityContextHolder.getContext().getAuthentication())) {
-                        logger.info("User session expired or not logged in yet");
+                        log.info("User session expired or not logged in yet");
                         String ajaxHeader = ((HttpServletRequest) request).getHeader("X-Requested-With");
 
                         if ("XMLHttpRequest".equals(ajaxHeader)) {
-                            logger.info("Ajax call detected, send {} error code");
+                            log.info("Ajax call detected, send {} error code");
                             HttpServletResponse resp = (HttpServletResponse) response;
                             resp.sendError(this.customSessionExpiredErrorCode);
                         } else {
-                            logger.info("Redirect to login page");
+                            log.info("Redirect to login page");
                             throw ase;
                         }
                     } else {
