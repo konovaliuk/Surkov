@@ -7,7 +7,10 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by Oleg on 08.05.2017.
+ * Entity to table order in database
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Entity
 @Table(name = "\"order\"", schema = "autoproject")

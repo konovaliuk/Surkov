@@ -3,7 +3,10 @@ package com.training.autoproject.entity;
 import javax.persistence.*;
 
 /**
- * Created by Oleg on 16-May-17.
+ * Entity to table role_type in database
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Entity
 @Table(name = "\"role_type\"", schema = "autoproject")

@@ -1,12 +1,13 @@
 package com.training.autoproject.controller;
 
 import com.training.autoproject.entity.Application;
-import com.training.autoproject.dto.JsonResponse;
+import com.training.autoproject.dto.JsonValidResponse;
 import com.training.autoproject.service.ApplicationService;
 import com.training.autoproject.service.OrderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,8 @@ import javax.validation.Valid;
  */
 @Controller
 public class UsersController {
+    @Autowired
+    ApplicationContext applicationContext;
     /**
      * Logger for logging class
      */
@@ -60,16 +63,22 @@ public class UsersController {
      */
     @RequestMapping(value = "/{carid}/addapplication", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResponse addApp(@Valid @ModelAttribute Application application, BindingResult bindingResult, @PathVariable("carid") Long id) {
+    public JsonValidResponse addApp(@Valid @ModelAttribute Application application, BindingResult bindingResult, @PathVariable("carid") Long id) {
         log.info("request to carid/addaplication");
-        JsonResponse jsonResponse = new JsonResponse();
+        JsonValidResponse jsonValidResponse = new JsonValidResponse();
         if (bindingResult.hasErrors()) {
-            jsonResponse.setFieldErrors(bindingResult.getFieldErrors());
-            jsonResponse.setStatus("error");
-            return jsonResponse;
+            jsonValidResponse.setFieldErrors(bindingResult.getFieldErrors());
+            jsonValidResponse.setStatus("error");
+            return jsonValidResponse;
         }
-        jsonResponse.setStatus("success");
+        jsonValidResponse.setStatus("success");
         applicationService.addApplication(application, id);
-        return jsonResponse;
+        return jsonValidResponse;
+    }
+
+    @RequestMapping(value = "/error", method = RequestMethod.GET)
+    @ResponseBody
+    public String errorHandler() {
+        return "error";
     }
 }

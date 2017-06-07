@@ -3,7 +3,10 @@ package com.training.autoproject.entity;
 import javax.persistence.*;
 
 /**
- * Created by Oleg on 08.05.2017.
+ * Entity to table blacklist in database
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Entity
 @Table(name = "\"black_list\"", schema = "autoproject")

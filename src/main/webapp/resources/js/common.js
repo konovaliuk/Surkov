@@ -95,14 +95,26 @@ $(document).ready(function () {
             type: "POST",
             data: form,
             success: function (result) {
-                $(".collapse").append('<ul class="nav navbar-nav navbar-left"> <li><a href="#" class="appnav">Applications</a></li> </ul>')
-                    .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="ordnav">Orders</a></li></ul>')
-                    .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="blnav">Black List</a></li>')
-                    .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="addblnav">Add in BlackList</a></li></ul>');
-                $(".navbar-right").empty();
-                $(".navbar-right").append(' <li><a href="#logout" class="logout">Log out</a></li>');
-                applicationTable(result);
                 $.magnificPopup.close();
+                if (result == "error") {
+                    $.magnificPopup.open({
+                        items: {
+                            src: "#loginform",
+                            type: 'inline',
+                        },
+                        closeBtnInside: true
+                    });
+                    alertMessage("not correct login or password", "danger", 4000)
+                }
+                else {
+                    $(".collapse").append('<ul class="nav navbar-nav navbar-left"> <li><a href="#" class="appnav">Applications</a></li> </ul>')
+                        .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="ordnav">Orders</a></li></ul>')
+                        .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="blnav">Black List</a></li>')
+                        .append('<ul class="nav navbar-nav navbar-left"> <li><a href="#some" class="addblnav">Add in BlackList</a></li></ul>');
+                    $(".navbar-right").empty();
+                    $(".navbar-right").append(' <li><a href="#logout" class="logout">Log out</a></li>');
+                    applicationTable(result);
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.status + ' ' + jqXHR.responseText);

@@ -2,13 +2,17 @@ package com.training.autoproject.entity;
 
 
 import org.hibernate.validator.constraints.Email;
+
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * Created by Oleg on 08.05.2017.
+ * Entity to table application in database
+ *
+ * @author Oleh Surkov
+ * @version 1.0
  */
 @Entity
 @Table(name = "\"application\"", schema = "autoproject")
@@ -25,7 +29,7 @@ public class Application implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }

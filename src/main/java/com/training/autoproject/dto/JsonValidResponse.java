@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Oleg on 16-May-17.
  */
-public class JsonResponse {
+public class JsonValidResponse {
     String status;
 
     public String getStatus() {

@@ -142,6 +142,7 @@ public class AdminController {
     @RequestMapping(value = "admin/addblacklist",method = RequestMethod.GET)
     @ResponseBody
     public List<BlackList> addBlackList(@RequestParam("passnum") String passnum) {
+        log.info("request to /admin/addblacklist");
         orderService.addToBlackList(passnum);
         return orderService.getBlackList();
     }
