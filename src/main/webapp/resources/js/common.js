@@ -2,6 +2,7 @@
  * Created by Oleg on 27.05.2017.
  */
 $(document).ready(function () {
+    var pagin;
     var x;
     $(".loginpopup").magnificPopup();
     $(document).on('click', 'a[name=formref]', function (e) {
@@ -272,6 +273,7 @@ function applicationTable(result) {
     for (var i = 0; i < result.length; i++) {
         $(".appresult").append('<tr><td>' + result[i].firstname + '</td><td>' + result[i].lastname + '</td><td>' + result[i].passnum + '</td><td>' + result[i].carByCarId.make + '</td><td><a href="#" class=" btn btn-danger" data-id="' + result[i].id + '" name="closeapp">Submit</a></td><td><a href="#" class="btn btn-info" data-id="' + result[i].id + '"name="addorder">Submit</a></td></tr>');
     }
+
 }
 
 function orderTable(result) {
@@ -293,6 +295,7 @@ function blackListTable(result) {
         $(".blresult").append('<tr><td>' + result[i].id + '</td><td>' + result[i].passnum + '</td></tr>');
     }
 }
+
 
 function alertMessage(message, type, delay) {
     $.bootstrapGrowl(message, // Messages

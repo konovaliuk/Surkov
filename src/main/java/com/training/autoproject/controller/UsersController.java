@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 
@@ -24,12 +25,10 @@ import javax.validation.Valid;
  */
 @Controller
 public class UsersController {
-
     /**
      * Logger for logging class
      */
     private static final Logger log = LogManager.getLogger(UsersController.class);
-    private static int temp = 0;
     /**
      * field for injecting realization of {@link com.training.autoproject.service.ApplicationService}
      */
@@ -43,31 +42,34 @@ public class UsersController {
      * @return views name
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String start(Model model) {
-
+    public String start(Model model, HttpServletRequest httpServletRequest) {
+        int x = 0;
+        httpServletRequest.getSession().setAttribute("pagin", x);
         log.info("request to /");
         model.addAttribute("App", new Application());
-        model.addAttribute("carList", applicationService.getPagination(0));
+        model.addAttribute("carList", applicationService.getPagination((Integer) httpServletRequest.getSession().getAttribute("pagin")));
 
         return "index";
 
     }
 
     @RequestMapping(value = "/next", method = RequestMethod.GET)
-    public String next(Model model) {
-        temp = temp + 4;
+    public String next(Model model, HttpServletRequest httpServletRequest) {
+        httpServletRequest.getSession().setAttribute("pagin", (Integer) httpServletRequest.getSession().getAttribute("pagin") + 4);
+
         log.info("request to /pagin");
         model.addAttribute("App", new Application());
-        model.addAttribute("carList", applicationService.getPagination(temp));
+        model.addAttribute("carList", applicationService.getPagination((Integer) httpServletRequest.getSession().getAttribute("pagin")));
         return "index";
     }
 
     @RequestMapping(value = "/last", method = RequestMethod.GET)
-    public String last(Model model) {
-        temp = temp - 4;
+    public String last(Model model, HttpServletRequest httpServletRequest) {
+        httpServletRequest.getSession().setAttribute("pagin", (Integer) httpServletRequest.getSession().getAttribute("pagin") - 4);
+
         log.info("request to /pagin");
         model.addAttribute("App", new Application());
-        model.addAttribute("carList", applicationService.getPagination(temp));
+        model.addAttribute("carList", applicationService.getPagination((Integer) httpServletRequest.getSession().getAttribute("pagin")));
         return "index";
     }
 
