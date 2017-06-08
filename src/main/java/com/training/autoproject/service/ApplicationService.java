@@ -27,5 +27,6 @@ public interface ApplicationService {
      */
     List<Car> getAccessibleCars();
 
+    List<Car> getPagination(int number);
 
 }

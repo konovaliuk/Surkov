@@ -29,12 +29,12 @@ public class UsersController {
      * Logger for logging class
      */
     private static final Logger log = LogManager.getLogger(UsersController.class);
+    private static int temp = 0;
     /**
      * field for injecting realization of {@link com.training.autoproject.service.ApplicationService}
      */
     @Autowired
     ApplicationService applicationService;
-
 
     /**
      * Method that listens "/" request
@@ -44,11 +44,31 @@ public class UsersController {
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String start(Model model) {
+
         log.info("request to /");
         model.addAttribute("App", new Application());
-        model.addAttribute("carList", applicationService.getAccessibleCars());
+        model.addAttribute("carList", applicationService.getPagination(0));
+
         return "index";
 
+    }
+
+    @RequestMapping(value = "/next", method = RequestMethod.GET)
+    public String next(Model model) {
+        temp = temp + 4;
+        log.info("request to /pagin");
+        model.addAttribute("App", new Application());
+        model.addAttribute("carList", applicationService.getPagination(temp));
+        return "index";
+    }
+
+    @RequestMapping(value = "/last", method = RequestMethod.GET)
+    public String last(Model model) {
+        temp = temp - 4;
+        log.info("request to /pagin");
+        model.addAttribute("App", new Application());
+        model.addAttribute("carList", applicationService.getPagination(temp));
+        return "index";
     }
 
     /**
@@ -79,4 +99,5 @@ public class UsersController {
     public String errorHandler() {
         return "error";
     }
+
 }

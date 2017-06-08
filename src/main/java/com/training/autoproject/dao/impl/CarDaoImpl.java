@@ -81,4 +81,9 @@ public class CarDaoImpl implements CarDao {
         entityManager.merge(car);
     }
 
+    @Override
+    public List<Car> findCarsByPage(int number) {
+        return entityManager.createQuery("SELECT c from Car c", Car.class).setFirstResult(number).setMaxResults(4).getResultList();
+    }
+
 }

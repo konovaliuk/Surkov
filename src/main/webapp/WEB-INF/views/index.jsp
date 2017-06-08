@@ -103,10 +103,13 @@
                                     code="submit"/></a>
                         </td>
                     </tr>
+
                 </c:forEach>
+
                 </tbody>
             </table>
-
+            <a href="/next" > Next</a>
+            <a href="/last" id="pagin"> Last</a>
         </div>
         <div class="col-md-1">
         </div>

@@ -40,4 +40,6 @@ public interface CarDao {
      */
     void updateCarByIsActive(Car car);
 
+    List<Car> findCarsByPage(int number);
+
 }

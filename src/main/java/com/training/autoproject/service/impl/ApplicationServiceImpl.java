@@ -78,4 +78,11 @@ public class ApplicationServiceImpl implements ApplicationService {
         log.info("invoke getAccessibleCars");
         return carDao.findCarsByIsActive();
     }
+
+    @Transactional
+    @Override
+    public List<Car> getPagination( int number) {
+        List<Car> x= carDao.findCarsByPage(number);
+        return x;
+    }
 }
