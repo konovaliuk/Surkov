@@ -24,8 +24,7 @@ import javax.validation.Valid;
  */
 @Controller
 public class UsersController {
-    @Autowired
-    ApplicationContext applicationContext;
+
     /**
      * Logger for logging class
      */
@@ -35,8 +34,7 @@ public class UsersController {
      */
     @Autowired
     ApplicationService applicationService;
-    @Autowired
-    OrderService orderService;
+
 
     /**
      * Method that listens "/" request

@@ -1,6 +1,7 @@
 package com.training.autoproject.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Entity to table user in database
@@ -10,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "\"user\"", schema = "autoproject")
-public class User {
+public class User implements Serializable {
     private Long id;
     private String nickname;
     private String password;

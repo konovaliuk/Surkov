@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.training.autoproject.util.impl.JsonDateSerializer;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "\"order\"", schema = "autoproject")
-public class Order {
+public class Order implements Serializable {
     private Long id;
     private Integer repaircost;
     private Date retdate;

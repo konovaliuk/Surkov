@@ -1,6 +1,7 @@
 package com.training.autoproject.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Entity to table blacklist in database
@@ -10,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "\"black_list\"", schema = "autoproject")
-public class BlackList {
+public class BlackList implements Serializable {
     private Long id;
 
     private String passnum;

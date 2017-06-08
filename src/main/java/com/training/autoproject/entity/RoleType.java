@@ -1,6 +1,7 @@
 package com.training.autoproject.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Entity to table role_type in database
@@ -10,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "\"role_type\"", schema = "autoproject")
-public class RoleType {
+public class RoleType implements Serializable {
     private Long id;
     private String role;
 

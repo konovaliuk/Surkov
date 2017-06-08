@@ -1,6 +1,8 @@
 package com.training.autoproject.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * Entity to table car in database
  *
@@ -9,7 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "\"car\"", schema = "autoproject")
-public  class Car {
+public  class Car implements Serializable {
     private Long id;
     private Integer price;
     private Integer isactive;
